@@ -16,10 +16,10 @@
 
 package pl.kotcrab.jscreenshot;
 
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 public interface ScreenshotListener {
-	public void screenshotTaken (Image image);
+	public void screenshotTaken (BufferedImage image);
 
 	public void canceled ();
 }

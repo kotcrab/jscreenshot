@@ -38,7 +38,7 @@ import java.lang.reflect.Constructor;
 import javax.swing.JDialog;
 import javax.swing.Timer;
 
-class EditorOverlay extends JDialog implements CaptureDialogOption {
+class Editor extends JDialog implements CaptureDialogOption {
 	static final int UI_SIZE = 2;
 
 	private ScreenshotListener listener;
@@ -49,7 +49,7 @@ class EditorOverlay extends JDialog implements CaptureDialogOption {
 
 	private Timer repaintTimer;
 
-	public EditorOverlay (boolean primaryMonitorOnly, ScreenshotListener listener) {
+	public Editor (boolean primaryMonitorOnly, ScreenshotListener listener) {
 		this.listener = listener;
 
 		createDialog();
@@ -130,13 +130,13 @@ class EditorOverlay extends JDialog implements CaptureDialogOption {
 	}
 
 	public void capture () {
-		listener.screenshotTaken(selectionArea.getSelectedImagePart());
 		dispose();
+		listener.screenshotTaken(selectionArea.getSelectedImagePart());
 	}
 
 	public void cancel () {
-		listener.canceled();
 		dispose();
+		listener.canceled();
 	}
 
 	@Override

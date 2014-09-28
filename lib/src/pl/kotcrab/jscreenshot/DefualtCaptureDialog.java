@@ -30,7 +30,7 @@ public class DefualtCaptureDialog extends AbstractCaptureDialog {
 		setUndecorated(true);
 
 		JButton cancelButton = new JButton("Cancel");
-		JButton acceptButton = new JButton("Accept");
+		JButton acceptButton = new JButton("Capture");
 
 		getContentPane().add(acceptButton, BorderLayout.EAST);
 		getContentPane().add(cancelButton, BorderLayout.WEST);

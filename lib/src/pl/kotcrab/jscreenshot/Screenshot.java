@@ -28,7 +28,7 @@ public class Screenshot {
 	}
 
 	public static void take (boolean primaryMonitorOnly, ScreenshotListener listener) {
-		new EditorOverlay(primaryMonitorOnly, listener);
+		new Editor(primaryMonitorOnly, listener);
 	}
 
 	public static Color getUiColor () {

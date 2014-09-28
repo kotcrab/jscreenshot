@@ -31,7 +31,7 @@ import javax.swing.JLabel;
 import javax.swing.event.MouseInputAdapter;
 
 class SelectionArea extends JLabel {
-	private EditorOverlay editor;
+	private Editor editor;
 
 	private BufferedImage image;
 	private BufferedImage imageGrayscale = null;
@@ -45,7 +45,7 @@ class SelectionArea extends JLabel {
 	private boolean dragged = false;
 	private boolean renderCross = true;
 
-	public SelectionArea (EditorOverlay editor, BufferedImage image) {
+	public SelectionArea (Editor editor, BufferedImage image) {
 		super(new ImageIcon(image));
 
 		this.editor = editor;
@@ -147,7 +147,7 @@ class SelectionArea extends JLabel {
 		final Graphics2D g = (Graphics2D)g1.create();
 		try {
 
-			g.setStroke(new BasicStroke(EditorOverlay.UI_SIZE));
+			g.setStroke(new BasicStroke(Editor.UI_SIZE));
 			g.setColor(Screenshot.getUiColor());
 
 			if (rectToDraw != null) {
