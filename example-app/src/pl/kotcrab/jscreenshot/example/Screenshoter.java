@@ -1,19 +1,21 @@
-/*******************************************************************************
+/**
  * Copyright 2014 Pawel Pastuszak
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- ******************************************************************************/
-
+ * 
+ * This file is part of Screenshoter.
+ * 
+ * Arget is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * Arget is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Arget.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package pl.kotcrab.jscreenshot.example;
 
 import java.awt.image.BufferedImage;
@@ -21,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -33,7 +36,9 @@ public class Screenshoter {
 	public static void main (String[] args) throws Exception {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-		Screenshot.take(true, new ScreenshotAdapter() {
+		Screenshot.setCaptureDialogClass(CaptureDialog.class);
+
+		Screenshot.take(new ScreenshotAdapter() {
 
 			@Override
 			public void screenshotTaken (BufferedImage image) {
@@ -41,13 +46,13 @@ public class Screenshoter {
 			}
 
 			private void saveToFile (BufferedImage image) {
-
+				JDialog dummyParent = new JDialog();
+				
 				JFileChooser fc = new JFileChooser();
 				fc.setMultiSelectionEnabled(false);
-				fc.setDialogTitle("Specify a file to save");
 				fc.setAcceptAllFileFilterUsed(false);
 				fc.setFileFilter(new FileNameExtensionFilter("PNG (*.png)", ".png"));
-				int returnVal = fc.showOpenDialog(null);
+				int returnVal = fc.showSaveDialog(dummyParent);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					String path = fc.getSelectedFile().getAbsolutePath();
 					if (path.endsWith(".png") == false) path += ".png";
@@ -58,7 +63,8 @@ public class Screenshoter {
 						e.printStackTrace();
 					}
 				}
-
+				
+				dummyParent.dispose(); //that will dispose JFileChooser as well
 			}
 
 		});
