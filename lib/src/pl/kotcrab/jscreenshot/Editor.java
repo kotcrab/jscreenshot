@@ -22,6 +22,7 @@ import java.awt.Cursor;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Insets;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.Point;
@@ -159,6 +160,8 @@ class Editor extends JDialog implements CaptureDialogOption {
 	void showPreCaptureDialog (Rectangle target) {
 		MathUtils.shiftBounds(target);
 
+		Insets dialogInsets = dialog.getCustomInsets();
+
 		int screenHeight = selectionArea.getHeight();
 		int uiOffset = UI_SIZE / 2;
 
@@ -171,11 +174,14 @@ class Editor extends JDialog implements CaptureDialogOption {
 		int dialogY = 0;
 
 		if (dialogRequiredHeight < screenHeight) // is enough space to show dialog in the bottom of the screenshot
-			dialogY = target.y + target.height + uiOffset;
+			dialogY = target.y + target.height + uiOffset + dialogInsets.top;
 		else if (availableSpaceTop > dialog.getHeight()) // is it enough space to show it above the screenshot
-			dialogY = target.y - uiOffset - dialog.getHeight();
-		else
-			dialogY = target.y + target.height + uiOffset - dialog.getHeight();// not enough space, show it inside screenshot
+			dialogY = target.y - uiOffset - dialog.getHeight() + dialogInsets.bottom;
+		else {
+			// not enough space, show it inside screenshot
+			dialogX += UI_SIZE + dialogInsets.left;
+			dialogY = target.y + target.height - UI_SIZE / 2 - dialog.getHeight() + dialogInsets.bottom;
+		}
 
 		dialog.setLocation(dialogX, dialogY);
 		dialog.setVisible(true);

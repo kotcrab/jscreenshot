@@ -16,10 +16,14 @@
 
 package pl.kotcrab.jscreenshot;
 
+import java.awt.Insets;
+
 import javax.swing.JDialog;
 
 public abstract class AbstractCaptureDialog extends JDialog implements CaptureDialog {
 
+	private Insets dialogInsets = new Insets(0, 0, 0, 0);
+	
 	protected CaptureDialogOption option;
 
 	public AbstractCaptureDialog () {
@@ -30,4 +34,7 @@ public abstract class AbstractCaptureDialog extends JDialog implements CaptureDi
 		this.option = opt;
 	}
 
+	public Insets getCustomInsets () {
+		return dialogInsets;
+	}
 }

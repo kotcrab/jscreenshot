@@ -16,6 +16,9 @@
 
 package pl.kotcrab.jscreenshot;
 
+import java.awt.Insets;
+
 public interface CaptureDialog {
 	public void setCaptureDialogOption (CaptureDialogOption opt);
+	public Insets getCustomInsets();
 }
