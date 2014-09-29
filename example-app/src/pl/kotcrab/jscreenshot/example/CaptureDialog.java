@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Arget.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package pl.kotcrab.jscreenshot.example;
 
 import java.awt.BorderLayout;
@@ -38,7 +39,7 @@ public class CaptureDialog extends AbstractCaptureDialog {
 
 	public CaptureDialog () {
 		StyleConstants.darkBorderColor = Screenshot.getUiColor();
-		
+
 		getContentPane().setBackground(Color.BLACK);
 		setUndecorated(true);
 		setOpacity(1f);
@@ -48,19 +49,21 @@ public class CaptureDialog extends AbstractCaptureDialog {
 		WebButton cancelButton = createTransparentButton();
 		WebButton acceptButton = createTransparentButton();
 
-		cancelButton.setIcon(new ImageIcon(CaptureDialog.class.getResource("/data/cross.png")));
-		acceptButton.setIcon(new ImageIcon(CaptureDialog.class.getResource("/data/tick.png")));
+		cancelButton.setIcon(new ImageIcon(getClass().getResource("cross.png")));
+		acceptButton.setIcon(new ImageIcon(getClass().getResource("tick.png")));
 
 		getContentPane().add(cancelButton, BorderLayout.WEST);
 		getContentPane().add(acceptButton, BorderLayout.EAST);
 
 		cancelButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed (ActionEvent e) {
 				option.cancel();
 			}
 		});
 
 		acceptButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed (ActionEvent e) {
 				option.capture();
 			}

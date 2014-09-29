@@ -31,7 +31,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import pl.kotcrab.jscreenshot.Screenshot;
 import pl.kotcrab.jscreenshot.ScreenshotAdapter;
 
-public class Screenshoter {
+public class Main {
 
 	public static void main (String[] args) throws Exception {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
