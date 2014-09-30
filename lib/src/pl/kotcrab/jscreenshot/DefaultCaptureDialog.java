@@ -21,28 +21,33 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 
-public class DefualtCaptureDialog extends AbstractCaptureDialog {
+/** Example implementation of CaptureDialog that will be used if none other is provided via
+ * {@link Screenshot#setCaptureDialogClass(Class)}. Depending on your current Look and Feel it will look very ugly or slightly
+ * less ugly.
+ * @author Pawel Pastuszak
+ * @see AbstractCaptureDialog */
+public class DefaultCaptureDialog extends AbstractCaptureDialog {
 
-	public DefualtCaptureDialog () {
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	public DefaultCaptureDialog () {
 		setUndecorated(true);
 
 		JButton cancelButton = new JButton("Cancel");
-		JButton acceptButton = new JButton("Capture");
+		JButton captureButton = new JButton("Capture");
 
-		getContentPane().add(acceptButton, BorderLayout.EAST);
+		getContentPane().add(captureButton, BorderLayout.EAST);
 		getContentPane().add(cancelButton, BorderLayout.WEST);
 
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
+				// cancel button pressed so option.cancel must be called
 				option.cancel();
 			}
 		});
 
-		acceptButton.addActionListener(new ActionListener() {
+		captureButton.addActionListener(new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
+				// capture button pressed so option.cancel must be called
 				option.capture();
 			}
 		});

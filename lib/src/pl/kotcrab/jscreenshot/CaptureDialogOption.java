@@ -16,8 +16,13 @@
 
 package pl.kotcrab.jscreenshot;
 
+/** Contains methods that can capture dialog call, this interface shouldn't be implemented by any class. See
+ * {@link AbstractCaptureDialog} if you wan't to create custom dialog.
+ * @author Pawel Pastuszak */
 public interface CaptureDialogOption {
+	/** Tells editor to capture current selection of screen */
 	public void capture ();
 
+	/** Tells editor that current capture should be canceled */
 	public void cancel ();
 }

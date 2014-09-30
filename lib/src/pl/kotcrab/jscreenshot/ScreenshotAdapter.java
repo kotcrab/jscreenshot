@@ -18,6 +18,8 @@ package pl.kotcrab.jscreenshot;
 
 import java.awt.image.BufferedImage;
 
+/** Empty implementation of {@link ScreenshotListener}
+ * @author Pawel Pastuszak */
 public class ScreenshotAdapter implements ScreenshotListener {
 
 	public void screenshotTaken (BufferedImage image) {

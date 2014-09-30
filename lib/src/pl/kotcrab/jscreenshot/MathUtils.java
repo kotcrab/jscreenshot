@@ -19,6 +19,9 @@ package pl.kotcrab.jscreenshot;
 import java.awt.Rectangle;
 
 class MathUtils {
+	/** If rectangle width and/or height is negative, this methods changes them so they are positive. It also changes X and/or Y so
+	 * rectangle will cover the same area.
+	 * @param rect that bounds will be changed */
 	public static void shiftBounds (Rectangle rect) { // rekt m9
 		if (rect.width < 0) {
 			rect.x = rect.x + rect.width;

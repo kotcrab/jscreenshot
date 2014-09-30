@@ -19,6 +19,7 @@ package pl.kotcrab.jscreenshot;
 import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -50,7 +51,7 @@ class Editor extends JDialog implements CaptureDialogOption {
 
 	private Timer repaintTimer;
 
-	public Editor (boolean primaryMonitorOnly, ScreenshotListener listener) {
+	public Editor (boolean primaryMonitorOnly, ScreenshotListener listener, EditorListener editorListener) {
 		this.listener = listener;
 
 		createDialog();
@@ -84,7 +85,7 @@ class Editor extends JDialog implements CaptureDialogOption {
 	private Rectangle2D calculateCaptureRectangle (boolean primaryMonitorOnly) {
 		Rectangle2D captureRectangle = new Rectangle2D.Float();
 		if (primaryMonitorOnly)
-			captureRectangle = GraphicsUtils.getPrimaryMonitorBounds();
+			captureRectangle = getPrimaryMonitorBounds();
 		else {
 			captureRectangle = new Rectangle2D.Double();
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -160,7 +161,7 @@ class Editor extends JDialog implements CaptureDialogOption {
 	void showPreCaptureDialog (Rectangle target) {
 		MathUtils.shiftBounds(target);
 
-		Insets dialogInsets = dialog.getCustomInsets();
+		Insets dialogInsets = dialog.getOffset();
 
 		int screenHeight = selectionArea.getHeight();
 		int uiOffset = UI_SIZE / 2;
@@ -193,6 +194,26 @@ class Editor extends JDialog implements CaptureDialogOption {
 			if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_ESCAPE) dispose();
 			return false;
 		}
+	}
+
+	private static Rectangle getPrimaryMonitorBounds () {
+		// because gd[0] is not always a primary monitor we must search for it
+
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // this is definitely primary monitor bounds
+
+		GraphicsDevice[] gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
+
+		for (int i = 0; i < gd.length; i++) {
+			Rectangle bounds = gd[i].getDefaultConfiguration().getBounds();
+
+			if (bounds.width == screenSize.width && bounds.height == screenSize.height) return bounds;
+		}
+
+		// Ultimate fallback, if we could not match screenSize to any of the screens, return bounds of gd[0]
+		// which may or may not be primary monitor bounds
+		if (gd.length > 0) return gd[0].getDefaultConfiguration().getBounds();
+
+		return null;
 	}
 
 }

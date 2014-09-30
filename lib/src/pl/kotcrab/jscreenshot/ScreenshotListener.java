@@ -18,8 +18,14 @@ package pl.kotcrab.jscreenshot;
 
 import java.awt.image.BufferedImage;
 
+/** Contains callback function from editor, see {@link ScreenshotAdapter} for empty implemetation
+ * @author Pawel Pastuszak
+ * @see ScreenshotAdapter */
 public interface ScreenshotListener {
+	/** Screenshot was taken
+	 * @param image captured screenshot */
 	public void screenshotTaken (BufferedImage image);
 
+	/** Screenshot taking was canceled by user */
 	public void canceled ();
 }

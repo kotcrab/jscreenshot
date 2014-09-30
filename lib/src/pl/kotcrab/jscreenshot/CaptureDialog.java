@@ -18,7 +18,20 @@ package pl.kotcrab.jscreenshot;
 
 import java.awt.Insets;
 
+/** Interface that all custom CaptureDialog's must implemented. This interface shouldn't be implemented directly,
+ * {@link AbstractCaptureDialog} should be used.
+ * @author Pawel Pastuszak
+ * @see AbstractCaptureDialog
+ * @see DefaultCaptureDialog */
 public interface CaptureDialog {
+	/** Called when editor and capture dialog are created, dialog should store given {@link CaptureDialogOption} and call
+	 * {@link CaptureDialogOption#cancel()} or {@link CaptureDialogOption#capture()} when right button is pressed.
+	 * @see AbstractCaptureDialog
+	 * @see DefaultCaptureDialog */
 	public void setCaptureDialogOption (CaptureDialogOption opt);
-	public Insets getCustomInsets();
+
+	/** Return custom dialog offset, that can be used to set position of capture dialog better for example when custom border is
+	 * used.
+	 * @return custom dialog offset */
+	public Insets getOffset ();
 }
