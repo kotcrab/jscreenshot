@@ -42,12 +42,11 @@ public class CaptureDialog extends AbstractCaptureDialog {
 
 		getContentPane().setBackground(Color.BLACK);
 		setUndecorated(true);
-		setOpacity(1f);
 
 		getRootPane().setBorder(BorderFactory.createLineBorder(Screenshot.getUiColor(), 2));
 
-		WebButton cancelButton = createTransparentButton();
-		WebButton acceptButton = createTransparentButton();
+		WebButton cancelButton = createButton();
+		WebButton acceptButton = createButton();
 
 		cancelButton.setIcon(new ImageIcon(getClass().getResource("cross.png")));
 		acceptButton.setIcon(new ImageIcon(getClass().getResource("tick.png")));
@@ -73,11 +72,11 @@ public class CaptureDialog extends AbstractCaptureDialog {
 	}
 
 	@Override
-	public Insets getCustomInsets () {
+	public Insets getOffset () {
 		return dialogInsets;
 	}
 
-	private WebButton createTransparentButton () {
+	private WebButton createButton () {
 		WebButton b = new WebButton();
 		b.setMoveIconOnPress(false);
 		b.setInnerShadeColor(Screenshot.getUiColor());
