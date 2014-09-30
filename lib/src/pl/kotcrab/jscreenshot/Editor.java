@@ -159,29 +159,28 @@ class Editor extends JDialog implements CaptureDialogOption {
 	}
 
 	void showPreCaptureDialog (Rectangle target) {
-		MathUtils.shiftBounds(target);
-
-		Insets dialogInsets = dialog.getOffset();
+		Insets dialogOffset = dialog.getOffset();
 
 		int screenHeight = selectionArea.getHeight();
 		int uiOffset = UI_SIZE / 2;
 
-		int targetTakenHeght = target.y + target.height;
-		int dialogRequiredHeight = targetTakenHeght + uiOffset + dialog.getHeight();
+		// required space for dialog if it display under capture area (yes, we have to use offset.top for bottom)
+		int dialogHeightBottom = dialog.getHeight() + uiOffset + dialogOffset.top;
+		int dialogHeightTop = dialog.getHeight() + uiOffset + dialogOffset.bottom;
 
 		int availableSpaceTop = screenHeight - target.height;
+		int availableHeightBottom = screenHeight - target.y - target.height;
 
 		int dialogX = target.x - uiOffset;
 		int dialogY = 0;
 
-		if (dialogRequiredHeight < screenHeight) // is enough space to show dialog in the bottom of the screenshot
-			dialogY = target.y + target.height + uiOffset + dialogInsets.top;
-		else if (availableSpaceTop > dialog.getHeight()) // is it enough space to show it above the screenshot
-			dialogY = target.y - uiOffset - dialog.getHeight() + dialogInsets.bottom;
-		else {
-			// not enough space, show it inside screenshot
-			dialogX += UI_SIZE + dialogInsets.left;
-			dialogY = target.y + target.height - UI_SIZE / 2 - dialog.getHeight() + dialogInsets.bottom;
+		if (availableHeightBottom > dialogHeightBottom) // is enough space to show dialog in the bottom of the screenshot
+			dialogY = target.y + target.height + uiOffset + dialogOffset.top;
+		else if (availableSpaceTop > dialogHeightTop) // is it enough space to show it above the screenshot
+			dialogY = target.y - uiOffset - dialog.getHeight() + dialogOffset.bottom;
+		else { // not enough space, show it inside screenshot
+			dialogX += UI_SIZE + dialogOffset.left;
+			dialogY = target.y + target.height - uiOffset - dialog.getHeight() + dialogOffset.bottom;
 		}
 
 		dialog.setLocation(dialogX, dialogY);

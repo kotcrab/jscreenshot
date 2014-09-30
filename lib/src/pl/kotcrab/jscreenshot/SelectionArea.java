@@ -174,11 +174,7 @@ class SelectionArea extends JLabel {
 
 	private Area calculateRectOutside (Rectangle2D r) {
 		Area outside = new Area(new Rectangle2D.Double(0, 0, getWidth(), getHeight()));
-
-		Rectangle bounds = r.getBounds();
-		MathUtils.shiftBounds(bounds);
-
-		outside.subtract(new Area(bounds));
+		outside.subtract(new Area(r.getBounds()));
 		return outside;
 	}
 
