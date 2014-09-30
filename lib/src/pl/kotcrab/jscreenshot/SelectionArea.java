@@ -30,11 +30,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.event.MouseInputAdapter;
 
+/** Selection area, allows for selection parts of an image.
+ * @author Pawel Pastuszak */
 class SelectionArea extends JLabel {
 	private Editor editor;
 
 	private BufferedImage image;
-	private BufferedImage imageGrayscale = null;
+	private BufferedImage imageGrayscale;
 
 	private Rectangle currentRect = null;
 	private Rectangle rectToDraw = null;
@@ -51,6 +53,14 @@ class SelectionArea extends JLabel {
 		this.editor = editor;
 		this.image = image;
 
+		createGrayscale();
+
+		SelectionMouseListener listener = new SelectionMouseListener();
+		addMouseListener(listener);
+		addMouseMotionListener(listener);
+	}
+
+	private void createGrayscale () {
 		imageGrayscale = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
 		Graphics g = imageGrayscale.getGraphics();
 		g.drawImage(image, 0, 0, null);
@@ -58,18 +68,12 @@ class SelectionArea extends JLabel {
 
 		RescaleOp rescaleOp = new RescaleOp(0.4f, 0, null);
 		rescaleOp.filter(imageGrayscale, imageGrayscale);
-
-		SelectionMouseListener listener = new SelectionMouseListener();
-		addMouseListener(listener);
-		addMouseMotionListener(listener);
 	}
 
 	private class SelectionMouseListener extends MouseInputAdapter {
 		@Override
 		public void mousePressed (MouseEvent e) {
-			int x = e.getX();
-			int y = e.getY();
-			currentRect = new Rectangle(x, y, 0, 0);
+			currentRect = new Rectangle(e.getX(), e.getY(), 0, 0);
 
 			renderCross = true;
 			dragged = false;
@@ -103,9 +107,7 @@ class SelectionArea extends JLabel {
 		}
 
 		private void updateSize (MouseEvent e) {
-			int x = e.getX();
-			int y = e.getY();
-			currentRect.setSize(x - currentRect.x, y - currentRect.y);
+			currentRect.setSize(e.getX() - currentRect.x, e.getY() - currentRect.y);
 			updateDrawableRect();
 		}
 
@@ -184,5 +186,4 @@ class SelectionArea extends JLabel {
 		Rectangle r = rectToDraw;
 		return image.getSubimage(r.x, r.y, r.width, r.height);
 	}
-
 }

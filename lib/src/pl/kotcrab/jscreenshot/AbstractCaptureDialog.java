@@ -22,7 +22,9 @@ import javax.swing.JDialog;
 
 /** Implementation of {@link CaptureDialog}. All custom dialogs should extend from this class. Custom dialog should display 2
  * buttons: 'Accept' and 'Cancel'. When 'Accept' button is clicked {@link CaptureDialogOption#capture()} must be called, and when
- * 'Cancel' button is clicked {@link CaptureDialogOption#cancel()} must be called. <br><br>
+ * 'Cancel' button is clicked {@link CaptureDialogOption#cancel()} must be called. <br>
+ * Dialog constructor must not take any arguments <br>
+ * <br>
  * See {@link DefaultCaptureDialog} for example.
  * @author Pawel Pastuszak
  * @see DefaultCaptureDialog */
