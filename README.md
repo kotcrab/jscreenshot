@@ -27,4 +27,13 @@ JScreenshot is a simple library for taking screenshots in Java applications, bef
  ```
 
 3. Add custom capture dialog (optional)  
-Default capture dialog is boring (and probably ugly depending on your current Look and Feel), chanigng them is prety easy, see wiki for that.
+Default capture dialog is boring (and probably ugly depending on your current Look and Feel), chanigng them is prety easy, [see wiki](https://github.com/kotcrab/JScreenshot/wiki/Creating-custom-Capture-Dialog) for that.
+
+#### Chaning UI color
+Default UI color is orange, that can be easily changed via calling:
+```java
+Screenshot.setUiColor(newColor);
+//for example:
+Screenshot.setUiColor(Color.BLUE);
+Screenshot.setUiColor(Color.RED);
+```
