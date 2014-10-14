@@ -37,7 +37,7 @@ public class Main {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
 		Screenshot.setCaptureDialogClass(CaptureDialog.class);
-
+		
 		Screenshot.take(new ScreenshotAdapter() {
 
 			@Override
