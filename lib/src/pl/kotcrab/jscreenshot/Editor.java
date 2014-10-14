@@ -190,7 +190,7 @@ class Editor extends JDialog implements CaptureDialogOption {
 
 	class KeyDispatcher implements KeyEventDispatcher {
 		public boolean dispatchKeyEvent (KeyEvent e) {
-			if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_ESCAPE) dispose();
+			if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyCode() == KeyEvent.VK_ESCAPE) cancel();
 			return false;
 		}
 	}
