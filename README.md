@@ -2,7 +2,7 @@ JScreenshot
 ===========
 
 JScreenshot is a simple library for taking screenshots in Java applications, before capture user can select screen area that he want to capture.  
-####[See demo](https://raw.githubusercontent.com/kotcrab/JScreenshot/master/usage-demo.gif)
+#### [See demo](https://raw.githubusercontent.com/kotcrab/JScreenshot/master/usage-demo.gif)
 
 ### Usage
 
